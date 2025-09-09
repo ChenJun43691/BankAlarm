@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>詐欺帳戶預測系統</title>
+    <style>
+        body {
+            font-family: "Heiti TC", sans-serif;
+            margin: 0;
+            padding: 2em;
+            background-image: url("/static/bank_bg.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        form {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2em;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 3em auto;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+        }
+
+        label {
+            display: block;
+            margin-top: 1em;
+        }
+
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 6px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            margin-top: 2em;
+            padding: 0.7em 1.2em;
+            background-color: #0078D4;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        button:hover {
+            background-color: #005999;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .result {
+            background-color: #fff9c4;
+            padding: 1em;
+            border-radius: 6px;
+            margin-top: 2em;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <h1>詐欺帳戶預測系統</h1>
+    <form action="/submit" method="POST">
+        <label>姓名：<input type="text" name="姓名" required></label>
+        <label>戶籍地址：<input type="text" name="戶籍地址"></label>
+        <label>通訊地址：<input type="text" name="通訊地址"></label>
+        <label>金融卡收取地址：<input type="text" name="金融卡收取地址"></label>
+
+        <label>性別：
+            <select name="性別(1:男；2:女）">
+                <option value="1">男</option>
+                <option value="2">女</option>
+            </select>
+        </label>
+
+        <label>金融卡收取方式：
+            <select name="金融卡收取方式">
+                <option value="郵寄">郵寄</option>
+                <option value="親取">親取</option>
+            </select>
+        </label>
+
+        <label>年齡：<input type="number" name="年齡" required></label>
+
+        <label>年齡區間：
+            <select name="年齡區間">
+                <option value="20歲以下">20歲以下</option>
+                <option value="20-29歲">20-29歲</option>
+                <option value="30-39歲">30-39歲</option>
+                <option value="40-49歲">40-49歲</option>
+                <option value="50歲以上">50歲以上</option>
+                <option value="60歲以上">60歲以上</option>
+            </select>
+        </label>
+
+        <label>戶籍通訊地址不同：
+            <select name="戶籍通訊地址不同">
+                <option value="1">是</option>
+                <option value="0">否</option>
+            </select>
+        </label>
+
+        <label>戶籍金融卡收取地址不同：
+            <select name="戶籍金融卡收取地址不同">
+                <option value="1">是</option>
+                <option value="0">否</option>
+            </select>
+        </label>
+
+        <label>ISP 國籍：
+            <select name="ISP 國籍(1:本國;2:境外)">
+                <option value="1">本國</option>
+                <option value="2">境外</option>
+            </select>
+        </label>
+
+        <button type="submit">預測是否為警示戶</button>
+    </form>
+
+    {% if prediction %}
+        <div class="result">
+            預測結果：<strong>{{ prediction }}</strong>
+        </div>
+    {% endif %}
+</body>
+</html>
